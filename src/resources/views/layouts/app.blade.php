@@ -16,7 +16,7 @@
         <div class="header__inner">
             <div class="header-utilities">
                 <a class="header__logo" href="/">
-                    アプリケーション名
+                    <img src="{{ asset('storage/logo.svg') }}">
                 </a>
                 <nav>
                     <ul class="header-nav">

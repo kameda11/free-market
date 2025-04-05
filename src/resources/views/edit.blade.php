@@ -1,25 +1,33 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 @endsection
 
 @section('content')
-<div>コンテンツを追加してください</div>
-<label for="post_code">郵便番号</label>
-<input type="text" name="post_code" id="post_code" value="{{ old('post_code') }}" placeholder="123-4567">
+<div class="address-edit-container">
+    <h2>住所の変更</h2>
 
-<label for="address">住所</label>
-<input type="text" name="address" id="address" value="{{ old('address') }}" required>
+    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="address-edit-form">
+        @csrf
+        <div class="form-group">
+            <label for="post_code" class="form-label">郵便番号</label>
+            <input type="text" name="post_code" id="post_code" class="form-input" value="{{ old('post_code', $user->post_code) }}" placeholder="123-4567">
+        </div>
 
-<label for="building">建物名</label>
-<input type="text" name="building" id="building" value="{{ old('building') }}">
+        <div class="form-group">
+            <label for="address" class="form-label">住所</label>
+            <input type="text" name="address" id="address" class="form-input" value="{{ old('address', $user->address) }}" required>
+        </div>
 
-<form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <label for="profiles_image">プロフィール画像</label>
-    <input type="file" name="profiles_image" id="profiles_image">
-    <button type="submit">アップロード</button>
-</form>
-<img src="{{ asset('storage/' . $user->profiles_image) }}" alt="プロフィール画像" width="100">
+        <div class="form-group">
+            <label for="building" class="form-label">建物名</label>
+            <input type="text" name="building" id="building" class="form-input" value="{{ old('building', $user->building) }}">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="submit-button">更新する</button>
+        </div>
+    </form>
+</div>
 @endsection

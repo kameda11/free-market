@@ -13,13 +13,8 @@ class CreateUserAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_addresses', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('addresses_id')->constrained()->cascadeOnDelete();
-            $table->string('post_code', 10);
-            $table->string('address');
-            $table->string('building')->nullable();
-            $table->timestamps();
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -30,6 +25,8 @@ class CreateUserAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_addresses');
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+        });
     }
 }
